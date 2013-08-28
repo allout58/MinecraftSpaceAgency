@@ -1,6 +1,7 @@
 package allout58.mods.SpaceCraft.Blocks;
 
 import allout58.mods.SpaceCraft.SpaceCraft;
+import allout58.mods.SpaceCraft.util.StringUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -17,5 +18,4 @@ public class BlockStorageStarSteel extends Block
         setCreativeTab(SpaceCraft.creativeTab);
         func_111022_d("spacecraft:" + this.getUnlocalizedName().substring(5));
     }
-
 }

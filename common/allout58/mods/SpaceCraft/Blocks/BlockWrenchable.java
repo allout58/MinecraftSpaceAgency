@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import allout58.mods.SpaceCraft.util.StringUtils;
 import buildcraft.api.tools.*;
 
 public abstract class BlockWrenchable extends BlockContainer
@@ -32,6 +33,7 @@ public abstract class BlockWrenchable extends BlockContainer
     {
         return 0;
     }
+    
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -49,7 +51,7 @@ public abstract class BlockWrenchable extends BlockContainer
                 return true;
             }
         }
-        return false;
+        return true;
     }
 
     public void wrenchBlock(World world, int x, int y, int z)
@@ -66,5 +68,4 @@ public abstract class BlockWrenchable extends BlockContainer
         entityitem.motionZ = (double) ((float) rand.nextGaussian() * f3);
         world.spawnEntityInWorld(entityitem);
     }
-
 }

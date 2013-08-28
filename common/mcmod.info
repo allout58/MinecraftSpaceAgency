@@ -1,0 +1,20 @@
+[
+{
+  "modid": "SpaceCraft",
+  "name" : "SpaceCraft",
+  "description" : "Use the power of rocket fuel to mine the heavens.",
+  "version": "0.0.1",
+  "url": "www.github.com/allout58/spacecraft/",
+  "updateUrl": "",
+  "authorList": [
+    "allout58"
+  ],
+  "credits": "allout58",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]

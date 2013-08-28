@@ -3,6 +3,7 @@ package allout58.mods.SpaceCraft;
 import allout58.mods.SpaceCraft.Blocks.*;
 import allout58.mods.SpaceCraft.Blocks.Logic.*;
 import allout58.mods.SpaceCraft.Items.*;
+import allout58.mods.SpaceCraft.Rockets.Entity.EntityRocket;
 import allout58.mods.SpaceCraft.Tools.*;
 import allout58.mods.SpaceCraft.WorldGen.*;
 
@@ -11,6 +12,7 @@ import cpw.mods.fml.common.Mod.*;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -29,7 +31,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(modid = "SpaceCraft", name = "SpaceCraft", version = "0.0.1")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels={"SpaceCraft"}, packetHandler = PacketHandler.class)
 public class SpaceCraft
 {
     public static Block oreStarSteel, storageStarSteel;
@@ -52,6 +54,10 @@ public class SpaceCraft
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+        proxy.registerRenderers();
+        
+        EntityRegistry.registerModEntity(EntityRocket.class, "rocket", 10, this.instance, 50, 1, true);
+        
         creativeTab = new CreativeTabs("SpaceCraft");
 
         EnumHelper.addToolMaterial("Star Steel", 2, 350, 6.5F, 2.1F, 20);
@@ -59,13 +65,15 @@ public class SpaceCraft
 
         SpaceCraftConfig.initConfig(new Configuration(event.getSuggestedConfigurationFile()));
         
+        allout58.mods.SpaceCraft.util.Localization.addLocalization("/lang/SpaceCraft/", "en_US");
+
         tileEntityRegistration();
+        
         loadBlocks();
         loadOres();
         loadItems();
         loadTools();
 
-        addNames();
         blockRegistration();
         oreRegistration();
         itemRegistration();
@@ -73,12 +81,14 @@ public class SpaceCraft
         forgeOreDict();
         addRecipes();
 
-        proxy.registerRenderers();
+
 
         GameRegistry.registerWorldGenerator(new GenStarSteelOre());
         GameRegistry.registerWorldGenerator(new GenMeteors());
 
     }
+
+
 
     private void forgeOreDict()
     {
@@ -124,23 +134,8 @@ public class SpaceCraft
 
     private void addNames()
     {
-        String langDir = "/assets/spacecraft/resources/lang/";
+        String langDir = "/lang/spacecraft/resources/lang/";
         String[] langFiles = { "en_US.xml" };
-
-        for (String langFile : langFiles)
-        {
-            try
-            {
-                LanguageRegistry.instance().loadLocalization(langDir + langFile, langFile.substring(langFile.lastIndexOf('/') + 1, langFile.lastIndexOf('.')), true);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-        // addItemNames();
-        // addBlockNames();
-        // addOreNames();
     }
 
     private void addItemNames()

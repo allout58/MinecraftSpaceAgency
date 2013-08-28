@@ -2,8 +2,15 @@ package allout58.mods.SpaceCraft.Blocks.Logic;
 
 // ~--- non-JDK imports --------------------------------------------------------
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
+
 import cpw.mods.fml.common.FMLLog;
 import allout58.mods.SpaceCraft.SpaceCraft;
+import allout58.mods.SpaceCraft.Rockets.Rocket;
+import allout58.mods.SpaceCraft.Rockets.RocketEnums.RocketSize;
+import allout58.mods.SpaceCraft.Rockets.Entity.EntityRocket;
 import allout58.mods.SpaceCraft.util.IFacingLogic;
 
 import net.minecraft.block.Block;
@@ -16,6 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 
 import net.minecraftforge.common.ForgeDirection;
+
 
 public class LaunchControlLogic extends TileEntity implements IFacingLogic
 {
@@ -30,8 +38,10 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
     private int centerX = 0;
     private int centerY = 0;
     private int centerZ = 0;
+    
+    public Rocket RocketLogic;
 
-    private boolean isLoaded = true;
+    private boolean needsUpdate = false;
 
     public boolean checkValidStructure(int x, int y, int z)
     {
@@ -40,38 +50,41 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
         isValidStructure &= checkLaunchPad(x, y, z);
         isValidStructure &= checkFlameOutlets(x, y, z);
 
+        needsUpdate = true;
+
         return isValidStructure;
     }
 
     private boolean checkFlameOutlets(int x, int y, int z)
     {
-        boolean isGood=false;
-        int halfSide=(int) Math.floor(sizes[size]/2);
-        long[] lengths=new long[] {0,0,0};
+        boolean isGood = false;
+        int halfSide = (int) Math.floor(sizes[size] / 2);
+        long[] lengths = new long[] { 0, 0, 0 };
         switch (direction)
         {
             case 2:
-                lengths[0]=flamePathLength(centerX-halfSide,centerY,centerZ,ForgeDirection.WEST);
-                lengths[1]=flamePathLength(centerX,centerY,centerZ+halfSide,ForgeDirection.SOUTH);
-                lengths[2]=flamePathLength(centerX+halfSide, centerY, centerZ, ForgeDirection.EAST);
+                lengths[0] = flamePathLength(centerX - halfSide, centerY, centerZ, ForgeDirection.WEST);
+                lengths[1] = flamePathLength(centerX, centerY, centerZ + halfSide, ForgeDirection.SOUTH);
+                lengths[2] = flamePathLength(centerX + halfSide, centerY, centerZ, ForgeDirection.EAST);
                 break;
             case 3:
-                lengths[0]=flamePathLength(centerX-halfSide,centerY,centerZ,ForgeDirection.WEST);
-                lengths[1]=flamePathLength(centerX,centerY,centerZ-halfSide,ForgeDirection.NORTH);
-                lengths[2]=flamePathLength(centerX+halfSide, centerY, centerZ, ForgeDirection.EAST);
+                lengths[0] = flamePathLength(centerX - halfSide, centerY, centerZ, ForgeDirection.WEST);
+                lengths[1] = flamePathLength(centerX, centerY, centerZ - halfSide, ForgeDirection.NORTH);
+                lengths[2] = flamePathLength(centerX + halfSide, centerY, centerZ, ForgeDirection.EAST);
                 break;
             case 4:
-                lengths[0]=flamePathLength(centerX,centerY,centerZ-halfSide,ForgeDirection.NORTH);
-                lengths[1]=flamePathLength(centerX,centerY,centerZ+halfSide,ForgeDirection.SOUTH);
-                lengths[2]=flamePathLength(centerX+halfSide, centerY, centerZ, ForgeDirection.EAST);
+                lengths[0] = flamePathLength(centerX, centerY, centerZ - halfSide, ForgeDirection.NORTH);
+                lengths[1] = flamePathLength(centerX, centerY, centerZ + halfSide, ForgeDirection.SOUTH);
+                lengths[2] = flamePathLength(centerX + halfSide, centerY, centerZ, ForgeDirection.EAST);
                 break;
             case 5:
-                lengths[0]=flamePathLength(centerX-halfSide,centerY,centerZ,ForgeDirection.WEST);
-                lengths[1]=flamePathLength(centerX,centerY,centerZ+halfSide,ForgeDirection.SOUTH);
-                lengths[2]=flamePathLength(centerX, centerY, centerZ-halfSide, ForgeDirection.NORTH);
+                lengths[0] = flamePathLength(centerX - halfSide, centerY, centerZ, ForgeDirection.WEST);
+                lengths[1] = flamePathLength(centerX, centerY, centerZ + halfSide, ForgeDirection.SOUTH);
+                lengths[2] = flamePathLength(centerX, centerY, centerZ - halfSide, ForgeDirection.NORTH);
                 break;
         }
-        if(MathHelper.average(lengths)>=1)isGood=true;
+        flameOutLength=(int) MathHelper.average(lengths);
+        if (flameOutLength >= 1) isGood = true;
         return isGood;
     }
 
@@ -122,8 +135,8 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                             }
                         }
                     }
-                    centerX=x;
-                    centerZ=z+halfSide;
+                    centerX = x;
+                    centerZ = z + halfSide;
                     break;
                 case 3:
                     for (int x1 = x - halfSide; x1 <= x + halfSide && isGood; x1++)
@@ -137,8 +150,8 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                             }
                         }
                     }
-                    centerX=x;
-                    centerZ=z-halfSide;
+                    centerX = x;
+                    centerZ = z - halfSide;
                     break;
                 case 4:
                     for (int x1 = x + 1; x1 <= x + sizes[i] && isGood; x1++)
@@ -194,6 +207,32 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
         }
         return (height > 0);
     }
+    
+    public void LaunchSequence(Rocket rBase)
+    {
+        RocketLogic = rBase;
+        System.out.println("Launching "+RocketLogic.Size.toString()+" size rocket...");
+        if(RocketLogic.Size.ordinal()+1>this.size)
+        {
+            //explodeLaunchPad();
+            System.out.println("Explode Launch Pad!");
+            //failLaunch();
+            return;
+        }
+        if((((RocketLogic.Size.ordinal()+1)^3)*2)>height)
+        {
+            //setRocketAccuracy(-.005*size.ordinal()^3*2-height);
+            System.out.println(((RocketLogic.Size.ordinal()+1)^3)*2);
+            System.out.println("Reduce Rocket Accuracy");
+        }
+        if((((RocketLogic.Size.ordinal()+1)^3)*3)>flameOutLength)
+        {
+            //flamesAroundEnd()
+            System.out.println(((RocketLogic.Size.ordinal()+1)^3)*3);
+            System.out.println("Too much flames!");
+        }
+        worldObj.spawnEntityInWorld(new EntityRocket(worldObj, RocketLogic, centerX, centerY+1.5D, centerZ));
+    }
 
     @Override
     public byte getRenderDirection()
@@ -208,7 +247,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
     {
         super.readFromNBT(tags);
         direction = tags.getByte("Direction");
-        isLoaded = false;
+        isValidStructure = tags.getBoolean("IsValidStructure");
     }
 
     @Override
@@ -216,6 +255,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
     {
         super.writeToNBT(tags);
         tags.setByte("Direction", direction);
+        tags.setBoolean("IsValidStructure", isValidStructure);
     }
 
     @Override
@@ -277,10 +317,19 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
     @Override
     public void updateEntity()
     {
-        if (!isLoaded)
+        if (needsUpdate)
         {
-            // worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-            isLoaded = true;
+            needsUpdate = false;
+            worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         }
+//        if(flameTime>0)
+//        {
+//            flameTime--;
+//            Random rand=new Random();
+//            for(int i=0;i<(rSize.ordinal()+1)*20;i++)
+//            {
+//               worldObj.spawnParticle("flame", centerX+rand.nextDouble()*(rand.nextBoolean()?-1:1), centerY+rand.nextDouble(), centerZ+rand.nextDouble()*(rand.nextBoolean()?-1:1), rand.nextDouble()*(rand.nextBoolean()?-1:1) , rand.nextDouble(), rand.nextDouble()*(rand.nextBoolean()?-1:1)) ;
+//            }
+//        }
     }
 }

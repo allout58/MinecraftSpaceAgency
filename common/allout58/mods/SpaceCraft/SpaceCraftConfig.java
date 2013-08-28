@@ -23,6 +23,9 @@ public class SpaceCraftConfig
     public static int starsteelgenMaxY_Upper;
     public static int starsteelgenRarity;
     public static int starsteelgenAmount;
+    
+    //rocket settings
+    public static int chanceMissFire;
 
     public static void initConfig(Configuration config)
     {
@@ -40,6 +43,8 @@ public class SpaceCraftConfig
         starsteelgenMaxY_Upper = config.get("WorldGen", "starSteelMaxY_Upper", 65).getInt();
         starsteelgenRarity = config.get("WorldGen", "starSteelRarity", 2).getInt();
         starsteelgenAmount = config.get("WorldGen", "starSteelAmount", 3).getInt();
+        //rocket settings
+        chanceMissFire = config.get("Rocket", "chanceMissFireEngine", 1000000).getInt();
         config.save();
     }
 
