@@ -21,10 +21,11 @@ public class ToolWrench extends Item implements IToolWrench
     }
 
     @Override
-    public String getItemDisplayName(ItemStack itemstack) {
+    public String getItemDisplayName(ItemStack itemstack)
+    {
         return StringUtils.localize(getUnlocalizedName(itemstack));
     }
-    
+
     @Override
     public boolean canWrench(EntityPlayer player, int x, int y, int z)
     {

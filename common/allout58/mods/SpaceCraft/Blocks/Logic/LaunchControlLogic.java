@@ -8,6 +8,7 @@ import java.util.Random;
 
 import cpw.mods.fml.common.FMLLog;
 import allout58.mods.SpaceCraft.SpaceCraft;
+import allout58.mods.SpaceCraft.Blocks.BlockList;
 import allout58.mods.SpaceCraft.Rockets.Rocket;
 import allout58.mods.SpaceCraft.Rockets.RocketEnums.RocketSize;
 import allout58.mods.SpaceCraft.Rockets.Entity.EntityRocket;
@@ -24,7 +25,6 @@ import net.minecraft.util.MathHelper;
 
 import net.minecraftforge.common.ForgeDirection;
 
-
 public class LaunchControlLogic extends TileEntity implements IFacingLogic
 {
     private static final int[] sizes = new int[] { 3, 5, 7 };
@@ -38,10 +38,12 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
     private int centerX = 0;
     private int centerY = 0;
     private int centerZ = 0;
-    
+
     public Rocket RocketLogic;
 
     private boolean needsUpdate = false;
+
+    /* Multiblock Structure Checking */
 
     public boolean checkValidStructure(int x, int y, int z)
     {
@@ -83,7 +85,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                 lengths[2] = flamePathLength(centerX, centerY, centerZ - halfSide, ForgeDirection.NORTH);
                 break;
         }
-        flameOutLength=(int) MathHelper.average(lengths);
+        flameOutLength = (int) MathHelper.average(lengths);
         if (flameOutLength >= 1) isGood = true;
         return isGood;
     }
@@ -129,7 +131,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         for (int z1 = z + 1; z1 <= z + sizes[i] && isGood; z1++)
                         {
 
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != SpaceCraft.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
                             {
                                 isGood = false;
                             }
@@ -144,7 +146,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         for (int z1 = z - sizes[i]; z1 <= z - 1 && isGood; z1++)
                         {
 
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != SpaceCraft.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
                             {
                                 isGood = false;
                             }
@@ -159,7 +161,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         for (int z1 = z - halfSide; z1 <= z + halfSide && isGood; z1++)
                         {
 
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != SpaceCraft.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
                             {
                                 isGood = false;
                             }
@@ -175,7 +177,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         for (int z1 = z - halfSide; z1 <= z + halfSide && isGood; z1++)
                         {
 
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != SpaceCraft.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
                             {
                                 isGood = false;
                             }
@@ -201,61 +203,47 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
 
     private boolean checkTowerHeight(int x, int y, int z)
     {
-        while (worldObj.getBlockId(x, ++y, z) == SpaceCraft.launchTower.blockID)
+        while (worldObj.getBlockId(x, ++y, z) == BlockList.launchTower.blockID)
         {
             height++;
         }
         return (height > 0);
     }
-    
+
+    /* Launching */
+
     public void LaunchSequence(Rocket rBase)
     {
         RocketLogic = rBase;
-        System.out.println("Launching "+RocketLogic.Size.toString()+" size rocket...");
-        if(RocketLogic.Size.ordinal()+1>this.size)
+        System.out.println("Launching " + RocketLogic.Size.toString() + " size rocket...");
+        if (RocketLogic.Size.ordinal() + 1 > this.size)
         {
-            //explodeLaunchPad();
+            // explodeLaunchPad();
             System.out.println("Explode Launch Pad!");
-            //failLaunch();
+            // failLaunch();
             return;
         }
-        if((((RocketLogic.Size.ordinal()+1)^3)*2)>height)
+        if ((((RocketLogic.Size.ordinal() + 1) ^ 3) * 2) > height)
         {
-            //setRocketAccuracy(-.005*size.ordinal()^3*2-height);
-            System.out.println(((RocketLogic.Size.ordinal()+1)^3)*2);
+            // setRocketAccuracy(-.005*size.ordinal()^3*2-height);
+            System.out.println(((RocketLogic.Size.ordinal() + 1) ^ 3) * 2);
             System.out.println("Reduce Rocket Accuracy");
         }
-        if((((RocketLogic.Size.ordinal()+1)^3)*3)>flameOutLength)
+        if ((((RocketLogic.Size.ordinal() + 1) ^ 3) * 3) > flameOutLength)
         {
-            //flamesAroundEnd()
-            System.out.println(((RocketLogic.Size.ordinal()+1)^3)*3);
+            // flamesAroundEnd()
+            System.out.println(((RocketLogic.Size.ordinal() + 1) ^ 3) * 3);
             System.out.println("Too much flames!");
         }
-        worldObj.spawnEntityInWorld(new EntityRocket(worldObj, RocketLogic, centerX, centerY+1.5D, centerZ));
+        worldObj.spawnEntityInWorld(new EntityRocket(worldObj, RocketLogic, centerX + 0.5, centerY + 1.5, centerZ + 0.5));
     }
+
+    /* IFacingLogic */
 
     @Override
     public byte getRenderDirection()
     {
         return direction;
-    }
-
-    /* NBT */
-
-    @Override
-    public void readFromNBT(NBTTagCompound tags)
-    {
-        super.readFromNBT(tags);
-        direction = tags.getByte("Direction");
-        isValidStructure = tags.getBoolean("IsValidStructure");
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound tags)
-    {
-        super.writeToNBT(tags);
-        tags.setByte("Direction", direction);
-        tags.setBoolean("IsValidStructure", isValidStructure);
     }
 
     @Override
@@ -298,6 +286,24 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
         }
     }
 
+    /* NBT */
+
+    @Override
+    public void readFromNBT(NBTTagCompound tags)
+    {
+        super.readFromNBT(tags);
+        direction = tags.getByte("Direction");
+        isValidStructure = tags.getBoolean("IsValidStructure");
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+        tags.setByte("Direction", direction);
+        tags.setBoolean("IsValidStructure", isValidStructure);
+    }
+
     /* Packets */
     @Override
     public Packet getDescriptionPacket()
@@ -322,14 +328,5 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
             needsUpdate = false;
             worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         }
-//        if(flameTime>0)
-//        {
-//            flameTime--;
-//            Random rand=new Random();
-//            for(int i=0;i<(rSize.ordinal()+1)*20;i++)
-//            {
-//               worldObj.spawnParticle("flame", centerX+rand.nextDouble()*(rand.nextBoolean()?-1:1), centerY+rand.nextDouble(), centerZ+rand.nextDouble()*(rand.nextBoolean()?-1:1), rand.nextDouble()*(rand.nextBoolean()?-1:1) , rand.nextDouble(), rand.nextDouble()*(rand.nextBoolean()?-1:1)) ;
-//            }
-//        }
     }
 }

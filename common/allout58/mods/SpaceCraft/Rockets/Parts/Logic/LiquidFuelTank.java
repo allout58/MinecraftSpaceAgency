@@ -11,7 +11,7 @@ public class LiquidFuelTank extends AddonBase
     public final int StorageSize;
 
     public LiquidFuelTank(RocketSize size)
-    {        
+    {
         this.Size = size;
         this.Description = "Stores liquid fuel for use in liquid-fueled engine.";
         switch (size)
@@ -36,16 +36,15 @@ public class LiquidFuelTank extends AddonBase
         }
         this.Name = size.toString() + " Liquid Fuel Tank";
     }
-    
+
     public Boolean addFuel(FluidStack fuel)
     {
-        if(FuelStored+fuel.amount<=StorageSize)
+        if (FuelStored + fuel.amount <= StorageSize)
         {
-            //check if valid liquid fuel
-            FuelStored+=fuel.amount;
+            // check if valid liquid fuel
+            FuelStored += fuel.amount;
             return true;
         }
-        else
-            return false;
+        else return false;
     }
 }

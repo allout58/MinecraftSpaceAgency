@@ -3,6 +3,7 @@ package allout58.mods.SpaceCraft.WorldGen;
 // ~--- non-JDK imports --------------------------------------------------------
 
 import allout58.mods.SpaceCraft.SpaceCraft;
+import allout58.mods.SpaceCraft.Blocks.BlockList;
 
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -116,7 +117,7 @@ public class GenMeteors implements IWorldGenerator
     {
         int newY = generateCrater(2, x, y, z, world);
 
-        world.setBlock(x, newY, z, SpaceCraft.oreStarSteel.blockID);
+        world.setBlock(x, newY, z, BlockList.oreStarSteel.blockID);
         System.out.println("Small Meteor at " + x + "," + z);
     }
 
@@ -130,7 +131,7 @@ public class GenMeteors implements IWorldGenerator
             {
                 for (int z1 = z - 1; z1 < z + 1; z1++)
                 {
-                    world.setBlock(x1, y1, z1, SpaceCraft.oreStarSteel.blockID);
+                    world.setBlock(x1, y1, z1, BlockList.oreStarSteel.blockID);
                 }
             }
         }
@@ -148,7 +149,7 @@ public class GenMeteors implements IWorldGenerator
             {
                 for (int z1 = z - 2; z1 < z + 2; z1++)
                 {
-                    world.setBlock(x1, y1 + 1, z1, SpaceCraft.oreStarSteel.blockID);
+                    world.setBlock(x1, y1 + 1, z1, BlockList.oreStarSteel.blockID);
                 }
             }
         }

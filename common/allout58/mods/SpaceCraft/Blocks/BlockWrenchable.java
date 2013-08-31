@@ -25,27 +25,29 @@ public abstract class BlockWrenchable extends BlockContainer
     public BlockWrenchable(int par1, Material par2Material)
     {
         super(par1, par2Material);
+        // set hardness extremely high so player doesn't accidentally break it
         setHardness(20F);
     }
 
     @Override
     public int quantityDropped(Random rand)
     {
+        // return 0 so the user is forced to use the wrench
         return 0;
     }
-    
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
     {
-        super.onBlockActivated(world, x, y, z, entityPlayer, par6, par7, par8, par9);
+        super.onBlockActivated(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
         if (!world.isRemote)
         {
+            // if the Item currently equipped is a wrench and player sneaking,
+            // wrench the block
             Item equipped = entityPlayer.getCurrentEquippedItem() != null ? entityPlayer.getCurrentEquippedItem().getItem() : null;
             if (equipped instanceof IToolWrench && ((IToolWrench) equipped).canWrench(entityPlayer, x, y, z) && entityPlayer.isSneaking())
             {
-                // world.markBlockForUpdate(x, y, z);
                 ((IToolWrench) equipped).wrenchUsed(entityPlayer, x, y, z);
                 this.wrenchBlock(world, x, y, z);
                 return true;
@@ -54,8 +56,10 @@ public abstract class BlockWrenchable extends BlockContainer
         return true;
     }
 
-    public void wrenchBlock(World world, int x, int y, int z)
+    protected void wrenchBlock(World world, int x, int y, int z)
     {
+        // remove the block from the world and spawn a EntityItem in the world
+        // of the block
         Random rand = new Random();
         world.setBlock(x, y, z, 0);
         float f = rand.nextFloat() * 0.8F + 0.1F;

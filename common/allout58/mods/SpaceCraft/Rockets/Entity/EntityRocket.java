@@ -6,60 +6,70 @@ import allout58.mods.SpaceCraft.Rockets.Rocket;
 import allout58.mods.SpaceCraft.Rockets.RocketEnums.RocketSize;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 
 public class EntityRocket extends Entity
 {
     Rocket rocketLogic;
-    
-    public EntityRocket(World world) {
+
+    public EntityRocket(World world)
+    {
         super(world);
+        this.preventEntitySpawning = true;
     }
-    
+
     public EntityRocket(World par1World, Rocket rLogic, double x, double y, double z)
     {
-        super(par1World);
-        rocketLogic=rLogic;
+        this(par1World);
+        rocketLogic = rLogic;
         this.setPosition(x, y, z);
-    }
-
-    @Override
-    protected void entityInit()
-    {
-        this.motionX=0;
-        this.motionY=0.01;
-        this.motionZ=0;
-        // TODO Auto-generated method stub
-
+        rocketLogic.Launch();
     }
 
     @Override
     protected void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
-        // TODO Auto-generated method stub
-
+        // super.readFromNBT(nbttagcompound);
+        rocketLogic = new Rocket();
+        rocketLogic.readFromNBT(nbttagcompound);
     }
 
     @Override
     protected void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
-        // TODO Auto-generated method stub
-
+        // super.writeToNBT(nbttagcompound);
+        rocketLogic.writeToNBT(nbttagcompound);
     }
-    
+
     @Override
     public void onUpdate()
     {
         super.onUpdate();
-        if(ticksExisted>100)
-            this.kill();
-        setPosition(posX + motionX, posY + motionY, posZ + motionZ);
-        if(rocketLogic==null)return;
-        Random rand = new Random();
-        for (int i = 0; i < (rocketLogic.Size.ordinal() + 1) * 4; i++)
+        if (ticksExisted > 500) this.kill();
+        if (rocketLogic == null) return;
+        if (!worldObj.isRemote)
         {
-            worldObj.spawnParticle("flame", this.posX + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), this.posY - rand.nextDouble(), this.posZ + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), -rand.nextDouble(), rand.nextDouble() * (rand.nextBoolean() ? -1 : 1));
+            rocketLogic.tick();
+            this.motionX = rocketLogic.velX;
+            this.motionY = rocketLogic.velY;
+            this.motionZ = rocketLogic.velZ;
+        }
+        setPosition(posX + motionX, posY + motionY, posZ + motionZ);
+        if (worldObj.isRemote)
+        {
+            Random rand = new Random();
+            for (int i = 0; i < (rocketLogic.Size.ordinal() + 1) * 2; i++)
+            {
+                worldObj.spawnParticle("flame", this.posX + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), this.posY - rand.nextDouble(), this.posZ + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), rand.nextInt(35) / 100 * (rand.nextBoolean() ? -1 : 1), -rand.nextDouble(), rand.nextInt(35) / 100 * (rand.nextBoolean() ? -1 : 1));
+            }
         }
     }
 
+    @Override
+    protected void entityInit()
+    {
+
+    }
 }

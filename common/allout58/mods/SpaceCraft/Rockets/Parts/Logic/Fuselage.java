@@ -7,34 +7,34 @@ import net.minecraftforge.liquids.LiquidStack;
 
 public class Fuselage extends RocketPart
 {
-    public  ArrayList<AddonBase> Addons=new ArrayList<AddonBase>();
-    public Boolean canAcceptLiquidFuel=false;
-    
+    public ArrayList<AddonBase> Addons = new ArrayList<AddonBase>();
+    public Boolean canAcceptLiquidFuel = false;
+
     public Boolean AddAddon(AddonBase addon)
     {
-        for(int i=0;i<Addons.size();i++)
+        for (int i = 0; i < Addons.size(); i++)
         {
-            if(addon.getClass()==Addons.get(i).getClass())
+            if (addon.getClass() == Addons.get(i).getClass())
             {
                 return false;
             }
         }
         Addons.add(addon);
-        this.Weight+=addon.Weight;
-        if(addon instanceof LiquidFuelTank)
+        this.Weight += addon.Weight;
+        if (addon instanceof LiquidFuelTank)
         {
-            canAcceptLiquidFuel=true;
+            canAcceptLiquidFuel = true;
         }
         return true;
     }
-    
+
     public Boolean AddLiquidFuel(FluidStack fluid)
     {
-        if(canAcceptLiquidFuel)
+        if (canAcceptLiquidFuel)
         {
-            for(int i=0;i<Addons.size();i++)
+            for (int i = 0; i < Addons.size(); i++)
             {
-                if(Addons.get(i) instanceof LiquidFuelTank)
+                if (Addons.get(i) instanceof LiquidFuelTank)
                 {
                     return ((LiquidFuelTank) Addons.get(i)).addFuel(fluid);
                 }

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import allout58.mods.SpaceCraft.SpaceCraft;
 import allout58.mods.SpaceCraft.SpaceCraftConfig;
+import allout58.mods.SpaceCraft.Blocks.BlockList;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -21,18 +22,13 @@ public class GenStarSteelOre implements IWorldGenerator
         chunkX = chunkX << 4;
         chunkZ = chunkZ << 4;
 
-        WorldGenMinable worldGenMinable = new WorldGenMinable(SpaceCraft.oreStarSteel.blockID, 0, SpaceCraft.starSteelGenAmount + 1, Block.stone.blockID);
+        WorldGenMinable worldGenMinable = new WorldGenMinable(BlockList.oreStarSteel.blockID, 0, SpaceCraftConfig.starsteelgenAmount + 1, Block.stone.blockID);
 
         for (int i = 0; i < SpaceCraftConfig.starsteelgenRarity; i++)
         {
             int x = chunkX + random.nextInt(16);
             int y = random.nextBoolean() ? random.nextInt(SpaceCraftConfig.starsteelgenMaxY_Lower - SpaceCraftConfig.starsteelgenMinY_Lower) + SpaceCraftConfig.starsteelgenMinY_Lower : random.nextInt(SpaceCraftConfig.starsteelgenMaxY_Upper - SpaceCraftConfig.starsteelgenMinY_Upper) + SpaceCraftConfig.starsteelgenMinY_Upper;// either
-                                                                                                                                                                                                                                                                                                                                     // lower
-                                                                                                                                                                                                                                                                                                                                     // band
-                                                                                                                                                                                                                                                                                                                                     // Y-vals
-                                                                                                                                                                                                                                                                                                                                     // or
-                                                                                                                                                                                                                                                                                                                                     // upper
-                                                                                                                                                                                                                                                                                                                                     // band
+                                                                                                                                                                                                                                                                                                                                     // //
                                                                                                                                                                                                                                                                                                                                      // Y-vals
             int z = chunkZ + random.nextInt(16);
 

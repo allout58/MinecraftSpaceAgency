@@ -19,13 +19,13 @@ public class CommonProxy
     public void addName(Object obj, String s)
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void addLocalization(String s1, String string)
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     public String getItemDisplayName(ItemStack stack)

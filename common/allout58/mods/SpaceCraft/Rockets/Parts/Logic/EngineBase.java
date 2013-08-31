@@ -1,5 +1,6 @@
 package allout58.mods.SpaceCraft.Rockets.Parts.Logic;
 
+import net.minecraft.nbt.NBTTagCompound;
 import allout58.mods.SpaceCraft.SpaceCraftConfig;
 import allout58.mods.SpaceCraft.Rockets.RocketEnums;
 import allout58.mods.SpaceCraft.Rockets.RocketEnums.FuelType;
@@ -13,7 +14,8 @@ public abstract class EngineBase extends RocketPart
 
     public Boolean fire()
     {
-        isRunning = !(rand.nextInt(SpaceCraftConfig.chanceMissFire) == 1);
+        // isRunning = !(rand.nextInt(SpaceCraftConfig.chanceMissFire) == 1);
+        isRunning = true;
         return isRunning;
     }
 
@@ -30,4 +32,19 @@ public abstract class EngineBase extends RocketPart
     protected abstract int powerPerFuel();
 
     protected abstract int fuelBurnPerTick();
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbttagcompound)
+    {
+        TotalFuel = nbttagcompound.getInteger("TotalFuel");
+        isRunning = nbttagcompound.getBoolean("IsRunning");
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbttagcompound)
+    {
+        nbttagcompound.setByte("Type", (byte) Fuel.ordinal());
+        nbttagcompound.setInteger("TotalFuel", TotalFuel);
+        nbttagcompound.setBoolean("IsRunning", isRunning);
+    }
 }

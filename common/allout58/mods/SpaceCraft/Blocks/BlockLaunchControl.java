@@ -85,13 +85,16 @@ public class BlockLaunchControl extends BlockWrenchable
         TileEntity te = world.getBlockTileEntity(x, y, z);
         if (te instanceof LaunchControlLogic)
         {
+            // check the multi-block one last time before trying to launch
             ((LaunchControlLogic) te).checkValidStructure(x, y, z);
-            EngineBase[] engines=new SolidFueledEngine[2];
-            engines[0]=new SolidFueledEngine(RocketSize.Small);
-            engines[1]=new SolidFueledEngine(RocketSize.Small);
-            Fuselage fuselage=new Fuselage();
-            fuselage.Size=RocketSize.Medium;
-            ((LaunchControlLogic) te).LaunchSequence(new Rocket(engines,fuselage,null));
+            // this code will be removed
+            EngineBase[] engines = new SolidFueledEngine[2];
+            engines[0] = new SolidFueledEngine(RocketSize.Small);
+            engines[1] = new SolidFueledEngine(RocketSize.Small);
+            Fuselage fuselage = new Fuselage();
+            fuselage.Size = RocketSize.Medium;
+            // end code removal
+            ((LaunchControlLogic) te).LaunchSequence(new Rocket(engines, fuselage, null));
         }
         return true;
     }
@@ -116,7 +119,7 @@ public class BlockLaunchControl extends BlockWrenchable
             {
                 ((IFacingLogic) logic).setDirection(entityLiving.rotationYaw * 4F, entityLiving.rotationPitch, entityLiving);
             }
-            if(logic instanceof LaunchControlLogic)
+            if (logic instanceof LaunchControlLogic)
             {
                 ((LaunchControlLogic) logic).checkValidStructure(x, y, z);
             }

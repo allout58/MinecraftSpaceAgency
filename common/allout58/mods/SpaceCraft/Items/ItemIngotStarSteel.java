@@ -17,9 +17,10 @@ public class ItemIngotStarSteel extends Item
         setUnlocalizedName("ingotStarSteel");
         func_111206_d("spacecraft:" + getUnlocalizedName().substring(5));
     }
-    
+
     @Override
-    public String getItemDisplayName(ItemStack itemstack) {
+    public String getItemDisplayName(ItemStack itemstack)
+    {
         return StringUtils.localize(getUnlocalizedName(itemstack));
     }
 
