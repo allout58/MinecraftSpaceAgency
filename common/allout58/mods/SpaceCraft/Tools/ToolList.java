@@ -19,8 +19,12 @@ public class ToolList
 
         /* Register tool items */
         GameRegistry.registerItem(toolWrench, "toolWrench");
-
+    }
+    
+    public static void addRecipies()
+    {
         /* Tool recipes */
         GameRegistry.addShapedRecipe(new ItemStack(toolWrench), "S S", " I ", " S ", 'S', new ItemStack(ItemList.ingotStarSteel), 'I', new ItemStack(Item.ingotIron));
+   
     }
 }

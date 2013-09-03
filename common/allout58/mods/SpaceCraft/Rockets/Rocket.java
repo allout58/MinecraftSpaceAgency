@@ -22,7 +22,7 @@ public class Rocket implements INBTTagable
     public int totalWeight = 0;
     public double velX = 0;
     public double velY = 0;
-    public double velZ = 0;
+    public double velZ = .1;
     public RocketSize Size;
 
     public Rocket()
@@ -65,6 +65,8 @@ public class Rocket implements INBTTagable
             power += Engines[i].engineTick();
         }
         velY = (double) ((power - totalWeight) / 60.1);
+        velX=0;
+        velZ=0;
     }
 
     @Override

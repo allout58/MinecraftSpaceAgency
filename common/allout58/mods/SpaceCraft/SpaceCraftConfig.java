@@ -12,7 +12,15 @@ public class SpaceCraftConfig
     public static int rocketAssembler;
     // Items
     public static int ingots;
-    public static int rocketPart;
+    public static int rocket;
+    // Rocket Parts
+    public static int partSatellite;
+    public static int partRover;
+    public static int partLiquidTank;
+    public static int partFuselage;
+    public static int partLiquidEngine;
+    public static int partSolidEngine;
+    public static int partFins;
     // Tools
     public static int wrench;
     public static int debugTool;
@@ -40,10 +48,18 @@ public class SpaceCraftConfig
         rocketAssembler = config.getBlock("Blocks", "rocketAssembler", 1204).getInt();
         // Items
         ingots = config.getItem("Items", "ingots", 5400).getInt();
-        rocketPart = config.getItem("Items", "rocketPart", 5402).getInt();
-        // Tools
-        wrench = config.getItem("Tools", "wrench", 5402).getInt();
-        debugTool = config.getItem("Tools", "debugTool", 5403).getInt();
+        rocket = config.getItem("Items","rocket", 5403).getInt();
+        // Rocket parts
+        partSatellite = config.getItem("RocketParts", "partSatellite", 5405).getInt();
+        partRover=config.getItem("RocketParts", "partRover", 5406).getInt();
+        partLiquidTank=config.getItem("RocketParts", "partLiquidTank", 5407).getInt();
+        partFuselage = config.getItem("RocketParts", "partFuselage", 5408).getInt();
+        partLiquidEngine = config.getItem("RocketParts", "partLiquidEngine", 5409).getInt();
+        partSolidEngine = config.getItem("RocketParts", "partSolidEngine", 5410).getInt();
+        partFins = config.getItem("RocketParts", "partFin", 5411).getInt();
+                // Tools
+        wrench = config.getItem("Tools", "wrench", 5401).getInt();
+        debugTool = config.getItem("Tools", "debugTool", 5402).getInt();
 
         // World Generation settings
         starsteelgenMinY_Lower = config.get("WorldGen", "starSteelMinY_Lower", 0).getInt();

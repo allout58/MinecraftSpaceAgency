@@ -1,4 +1,4 @@
-package allout58.mods.SpaceCraft.Rockets.Model;
+package allout58.mods.SpaceCraft.client.models;
 
 import org.lwjgl.opengl.GL11;
 

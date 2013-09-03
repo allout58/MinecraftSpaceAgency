@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
 import allout58.mods.SpaceCraft.CommonProxy;
 import allout58.mods.SpaceCraft.Rockets.Entity.EntityRocket;
+import allout58.mods.SpaceCraft.client.render.RenderRocket;
 
 public class ClientProxy extends CommonProxy
 {

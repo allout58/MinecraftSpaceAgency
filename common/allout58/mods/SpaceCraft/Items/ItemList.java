@@ -19,7 +19,11 @@ public class ItemList
         /* Register items */
         GameRegistry.registerItem(ingotStarSteel, "ingotStarSteel");
 
+    }
+    
+    public static void addRecipies()
+    {
         /* Item recipes */
-        FurnaceRecipes.smelting().addSmelting(BlockList.oreStarSteel.blockID, new ItemStack(ingotStarSteel), 0.85F);
+        FurnaceRecipes.smelting().addSmelting(BlockList.oreStarSteel.blockID, new ItemStack(ingotStarSteel), 0.85F); 
     }
 }

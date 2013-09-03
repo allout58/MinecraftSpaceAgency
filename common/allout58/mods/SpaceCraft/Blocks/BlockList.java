@@ -19,33 +19,34 @@ public class BlockList
     public static void init()
     {
         /* Initialize block objects */
-
         // ore blocks
         oreStarSteel = new BlockOreStarSteel(SpaceCraftConfig.ores, Material.rock);
         storageStarSteel = new BlockStorageStarSteel(SpaceCraftConfig.storageBlock, Material.iron);
         // tech blocks
         launchTower = new BlockLaunchTower(SpaceCraftConfig.launchTower, Material.iron);
         launchTowerController = new BlockLaunchControl(SpaceCraftConfig.launchController, Material.iron);
+        rocketAssembler= new BlockRocketAssembler(SpaceCraftConfig.rocketAssembler, Material.iron);
 
         /* Register Blocks */
-
         // ore blocks
         GameRegistry.registerBlock(oreStarSteel, "oreStarSteel");
         GameRegistry.registerBlock(storageStarSteel, "storageStarSteel");
         // tech blocks
         GameRegistry.registerBlock(launchTower, "launchTower");
         GameRegistry.registerBlock(launchTowerController, "launchTowerController");
+        GameRegistry.registerBlock(rocketAssembler,"rocketAssembler");
 
         /* Set block harvest level */
-
         // ore blocks
         MinecraftForge.setBlockHarvestLevel(oreStarSteel, "pickaxe", 2);
         MinecraftForge.setBlockHarvestLevel(storageStarSteel, "pickaxe", 2);
         // tech blocks
         MinecraftForge.setBlockHarvestLevel(launchTower, "pickaxe", 1);
-
+    }
+    
+    public static void addRecipies()
+    {
         /* Block recipes */
         GameRegistry.addShapedRecipe(new ItemStack(storageStarSteel), "III", "III", "III", 'I', new ItemStack(ItemList.ingotStarSteel));
-
     }
 }

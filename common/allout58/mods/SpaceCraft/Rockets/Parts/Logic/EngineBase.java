@@ -24,6 +24,11 @@ public abstract class EngineBase extends RocketPart
         if (isRunning)
         {
             TotalFuel -= fuelBurnPerTick();
+            if(TotalFuel<=0)
+            {
+                isRunning=false;
+                return 0;
+            }
             return fuelBurnPerTick() * powerPerFuel();
         }
         else return 0;

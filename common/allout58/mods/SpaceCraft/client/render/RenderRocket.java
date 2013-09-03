@@ -1,11 +1,12 @@
-package allout58.mods.SpaceCraft.client;
+package allout58.mods.SpaceCraft.client.render;
 
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
 
+import allout58.mods.SpaceCraft.Constants.SpaceCraftTextures;
 import allout58.mods.SpaceCraft.Rockets.Entity.EntityRocket;
-import allout58.mods.SpaceCraft.Rockets.Model.ModelRocket;
+import allout58.mods.SpaceCraft.client.models.ModelRocket;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.Render;
@@ -16,7 +17,7 @@ public class RenderRocket extends Render
 {
     private ModelRocket model;
     // private ModelRenderer renderer;
-    public static final ResourceLocation TEXTURE = new ResourceLocation("spacecraft", "textures/entities/fuselage.png");
+    
 
     // public static final ResourceLocation TEXTURE = new
     // ResourceLocation("buildcraft", "textures/entities" + "/robot.png");
@@ -55,35 +56,9 @@ public class RenderRocket extends Render
         // GL11.glRotatef(-90F, 1F, 0F, 0F);
 
         // Bind texture
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(TEXTURE);
+        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(SpaceCraftTextures.MODEL_ROCKET);
 
         model.render();
-
-        // float factor = (float) (1.0 / 16.0);
-        // if (rocket.rocketLogic != null)
-        // {
-        // switch (rocket.rocketLogic.Size)
-        // {
-        // case Large:
-        // factor = (float) (1.0 / 4.0);
-        // break;
-        // case Medium:
-        // factor = (float) (1.0 / 8.0);
-        // break;
-        // case Small:
-        // factor = (float) (1.0 / 16.0);
-        // break;
-        // default:
-        // break;
-        //
-        // }
-        // renderer.render(factor);
-        // }
-        // else
-        // {
-        // System.out.println("Rocket Logic error");
-        // new Exception("Rocket Logic Error").printStackTrace();
-        // }
 
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();
@@ -94,7 +69,7 @@ public class RenderRocket extends Render
     protected ResourceLocation func_110775_a(Entity entity)
     {
         // TODO Auto-generated method stub
-        return TEXTURE;
+        return SpaceCraftTextures.MODEL_ROCKET;
     }
 
 }

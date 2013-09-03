@@ -21,7 +21,7 @@ public class SolidFueledEngine extends EngineBase
                 TotalFuel = 900;
                 break;
             case Small:
-                TotalFuel = 450;
+                TotalFuel = 20;//450
                 break;
             default:
                 break;

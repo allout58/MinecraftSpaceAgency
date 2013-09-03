@@ -2,17 +2,21 @@ package allout58.mods.SpaceCraft;
 
 import allout58.mods.SpaceCraft.Blocks.*;
 import allout58.mods.SpaceCraft.Blocks.Logic.*;
+import allout58.mods.SpaceCraft.Constants.SpaceCraftEntityIDs;
 import allout58.mods.SpaceCraft.Items.*;
 import allout58.mods.SpaceCraft.Rockets.Entity.EntityRocket;
+import allout58.mods.SpaceCraft.Rockets.Parts.Items.RocketPartList;
 import allout58.mods.SpaceCraft.Tools.*;
 import allout58.mods.SpaceCraft.WorldGen.*;
 import allout58.mods.SpaceCraft.util.*;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.*;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -34,7 +38,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
 @Mod(modid = "SpaceCraft", name = "SpaceCraft", version = "0.0.1")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "SpaceCraft" }, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)//, channels = { "SpaceCraft" }, packetHandler = PacketHandler.class)
 public class SpaceCraft
 {
     // not sure if these go in ItemList or ToolList
@@ -45,10 +49,14 @@ public class SpaceCraft
     {
         @Override
         @SideOnly(Side.CLIENT)
-        public int getTabIconItemIndex()
+        public Item getTabIconItem()
         {
-
-            return SpaceCraftConfig.ingots;
+            return ItemList.ingotStarSteel;
+        }
+        
+        @Override
+        public String getTranslatedTabLabel() {
+            return StringUtils.localize("strings.Title");
         }
     };
 
@@ -61,33 +69,45 @@ public class SpaceCraft
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        // load configuration
+        FMLLog.getLogger().info("Starting SpaceCraft");
+        // Load configuration
         SpaceCraftConfig.initConfig(new Configuration(event.getSuggestedConfigurationFile()));
 
-        // load localizations
+        // Load localizations
         Localization.addLocalization("/lang/SpaceCraft/", "en_US");
 
-        // client proxy things
+        // Client proxy things
         proxy.registerRenderers();
 
-        // entity registration
-        EntityRegistry.registerModEntity(EntityRocket.class, "rocket", 10, this.instance, 60, 1, true);
+        // Entity registration
+        EntityRegistry.registerModEntity(EntityRocket.class, "rocket", SpaceCraftEntityIDs.ROCKET, this.instance, 60, 5, true);
 
-        // add star steel as a tool material
+        // Add star steel as a tool material
         EnumHelper.addToolMaterial("Star Steel", 2, 350, 6.5F, 2.1F, 20);
         EnumHelper.addArmorMaterial("Star Steel", 18, new int[] { 3, 6, 5, 3 }, 20);
 
-        // register tile entities
+        // Register tile entities
         tileEntityRegistration();
 
-        // Initialize all our blocks, items and tools
+        // Initialize all our blocks, items, tools and rocket parts
         BlockList.init();
         ItemList.init();
         ToolList.init();
-
-        // register our world generators
+        RocketPartList.init();
+        
+        
+        // Add the recipies for our blocks, items, tools and rocket parts
+        BlockList.addRecipies();
+        ItemList.addRecipies();
+        ToolList.addRecipies();
+        RocketPartList.addRecipies();
+        
+        // Register our world generators
         GameRegistry.registerWorldGenerator(new GenStarSteelOre());
         GameRegistry.registerWorldGenerator(new GenMeteors());
+        
+        //Register our Gui Handler
+        NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
     }
 

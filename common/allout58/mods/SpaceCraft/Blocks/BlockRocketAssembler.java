@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import allout58.mods.SpaceCraft.SpaceCraft;
 import allout58.mods.SpaceCraft.Blocks.Logic.AssemblerLogic;
+import allout58.mods.SpaceCraft.Constants.SpaceCraftGuiIDs;
 import allout58.mods.SpaceCraft.util.IFacingLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -61,7 +62,21 @@ public class BlockRocketAssembler extends BlockWrenchable
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int par6, float par7, float par8, float par9)
     {
         super.onBlockActivated(world, x, y, z, entityPlayer, par6, par7, par8, par9);
-        return true;
+        if (entityPlayer.isSneaking()) return false;
+        else
+        {
+            if (!world.isRemote)
+            {
+                AssemblerLogic logic = (AssemblerLogic) world.getBlockTileEntity(x, y, z);
+
+                if (logic != null)
+                {
+                    entityPlayer.openGui(SpaceCraft.instance, SpaceCraftGuiIDs.ROCKET_ASSEMBLER, world, x, y, z);
+                }
+            }
+
+            return true;
+        }
     }
 
     @Override
