@@ -33,7 +33,6 @@ public class EntityRocket extends Entity
     @Override
     protected void readEntityFromNBT(NBTTagCompound nbttagcompound)
     {
-        // super.readFromNBT(nbttagcompound);
          rocketLogic = new Rocket();
          rocketLogic.readFromNBT(nbttagcompound);
     }
@@ -41,7 +40,6 @@ public class EntityRocket extends Entity
     @Override
     protected void writeEntityToNBT(NBTTagCompound nbttagcompound)
     {
-        // super.writeToNBT(nbttagcompound);
          rocketLogic.writeToNBT(nbttagcompound);
     }
 
@@ -54,23 +52,20 @@ public class EntityRocket extends Entity
         if (!worldObj.isRemote)
         {
             rocketLogic.tick();
-        }
             this.motionX = rocketLogic.velX;
             this.motionY = rocketLogic.velY;
             this.motionZ = rocketLogic.velZ;
-//            this.motionX=0;
-//            this.motionY=(double)(1.1/30.1);
-//            this.motionZ=0;
-//        }
+
+        }
         setPosition(posX + motionX, posY + motionY, posZ + motionZ);
-//        if (worldObj.isRemote)
-//        {
-//            Random rand = new Random();
-//            for (int i = 0; i < (rocketLogic.Size.ordinal() + 1) * (2 - Minecraft.getMinecraft().gameSettings.particleSetting); i++)
-//            {
-//                worldObj.spawnParticle("flame", this.posX + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), this.posY - rand.nextDouble(), this.posZ + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), rand.nextInt(35) / 100 * (rand.nextBoolean() ? -1 : 1), -rand.nextDouble(), rand.nextInt(35) / 100 * (rand.nextBoolean() ? -1 : 1));
-//            }
-//        }
+        if (worldObj.isRemote)
+        {
+            Random rand = new Random();
+            for (int i = 0; i < (rocketLogic.Size.ordinal() + 1) * (2 - Minecraft.getMinecraft().gameSettings.particleSetting); i++)
+            {
+                worldObj.spawnParticle("flame", this.posX + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), this.posY - rand.nextDouble(), this.posZ + rand.nextDouble() * (rand.nextBoolean() ? -1 : 1), rand.nextInt(35) / 100 * (rand.nextBoolean() ? -1 : 1), -rand.nextDouble(), rand.nextInt(35) / 100 * (rand.nextBoolean() ? -1 : 1));
+            }
+        }
         System.out.println("Rocket entity-" + (worldObj.isRemote ? "Client" : "Server") + " x:" + posX + " y:" + posY + " z:" + posZ);
 
     }
