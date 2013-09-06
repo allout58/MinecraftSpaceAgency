@@ -1,10 +1,10 @@
 [
 {
-  "modid": "SpaceCraft",
-  "name" : "SpaceCraft",
+  "modid": "MinecraftSpaceAgency",
+  "name" : "Minecraft Space Agency",
   "description" : "Use the power of rocket fuel to mine the heavens.",
   "version": "0.0.1",
-  "url": "www.github.com/allout58/spacecraft/",
+  "url": "www.github.com/allout58/MinecraftSpaceAgency/",
   "updateUrl": "",
   "authorList": [
     "allout58"
