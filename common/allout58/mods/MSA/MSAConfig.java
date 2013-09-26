@@ -10,6 +10,7 @@ public class MSAConfig
     public static int launchTower;
     public static int launchController;
     public static int rocketAssembler;
+    public static int comSatellite;
     // Items
     public static int ingots;
     public static int rocket;
@@ -46,6 +47,7 @@ public class MSAConfig
         launchTower = config.getBlock("Blocks", "launchTower", 1202).getInt();
         launchController = config.getBlock("Blocks", "launchController", 1203).getInt();
         rocketAssembler = config.getBlock("Blocks", "rocketAssembler", 1204).getInt();
+        comSatellite=config.getBlock("Blocks", "comSatellite", 1205).getInt();
         // Items
         ingots = config.getItem("Items", "ingots", 5400).getInt();
         rocket = config.getItem("Items","rocket", 5403).getInt();

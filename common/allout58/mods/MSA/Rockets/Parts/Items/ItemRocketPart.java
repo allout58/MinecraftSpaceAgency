@@ -1,6 +1,7 @@
 package allout58.mods.MSA.Rockets.Parts.Items;
 
 import allout58.mods.MSA.MSA;
+import allout58.mods.MSA.constants.MSATextures;
 import allout58.mods.MSA.util.StringUtils;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,6 +30,6 @@ public abstract class ItemRocketPart extends Item
     public void postInit()
     {
         //for now, this will be different w/ custom renderers
-        func_111206_d("spacecraft:" + getUnlocalizedName().substring(5));
+        setTextureName(MSATextures.RESOURCE_CONTEXT+":" + getUnlocalizedName().substring(5));
     }
 }

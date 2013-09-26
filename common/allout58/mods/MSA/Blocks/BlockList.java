@@ -15,6 +15,7 @@ public class BlockList
     public static Block launchTower;
     public static Block launchTowerController;
     public static Block rocketAssembler;
+    public static Block comSatellite;
 
     public static void init()
     {
@@ -26,6 +27,7 @@ public class BlockList
         launchTower = new BlockLaunchTower(MSAConfig.launchTower, Material.iron);
         launchTowerController = new BlockLaunchControl(MSAConfig.launchController, Material.iron);
         rocketAssembler= new BlockRocketAssembler(MSAConfig.rocketAssembler, Material.iron);
+        comSatellite = new BlockComSatellite(MSAConfig.comSatellite,Material.iron);
 
         /* Register Blocks */
         // ore blocks
@@ -35,6 +37,7 @@ public class BlockList
         GameRegistry.registerBlock(launchTower, "launchTower");
         GameRegistry.registerBlock(launchTowerController, "launchTowerController");
         GameRegistry.registerBlock(rocketAssembler,"rocketAssembler");
+        GameRegistry.registerBlock(comSatellite,"comSatellite");
 
         /* Set block harvest level */
         // ore blocks

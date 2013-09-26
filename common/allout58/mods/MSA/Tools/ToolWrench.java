@@ -2,6 +2,7 @@ package allout58.mods.MSA.Tools;
 
 import buildcraft.api.tools.IToolWrench;
 import allout58.mods.MSA.MSA;
+import allout58.mods.MSA.constants.MSATextures;
 import allout58.mods.MSA.util.StringUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,7 +18,7 @@ public class ToolWrench extends Item implements IToolWrench
         setMaxStackSize(1);
         setCreativeTab(MSA.creativeTab);
         setUnlocalizedName("wrench");
-        func_111206_d("spacecraft:" + getUnlocalizedName().substring(5));
+        setTextureName(MSATextures.RESOURCE_CONTEXT + ":" + getUnlocalizedName().substring(5));
     }
 
     @Override

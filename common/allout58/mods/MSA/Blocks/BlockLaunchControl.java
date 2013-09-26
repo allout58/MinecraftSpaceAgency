@@ -15,6 +15,7 @@ import allout58.mods.MSA.Rockets.Parts.Logic.PayloadBase;
 import allout58.mods.MSA.Rockets.Parts.Logic.PayloadSatellite;
 import allout58.mods.MSA.Rockets.Parts.Logic.SolidFueledEngine;
 import allout58.mods.MSA.Rockets.RocketEnums.RocketSize;
+import allout58.mods.MSA.constants.MSATextures;
 import allout58.mods.MSA.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -73,10 +74,10 @@ public class BlockLaunchControl extends BlockWrenchable
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir)
     {
-        this.side = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_side");
-        this.bottom = this.top = ir.registerIcon("SpaceCraft:blockStarSteel");
-        this.front = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_front");
-        this.frontBroke = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_front_broke");
+        this.side = ir.registerIcon(MSATextures.RESOURCE_CONTEXT+":" + this.getUnlocalizedName().substring(5) + "_side");
+        this.bottom = this.top = ir.registerIcon(MSATextures.RESOURCE_CONTEXT+":blockStarSteel");
+        this.front = ir.registerIcon(MSATextures.RESOURCE_CONTEXT+":" + this.getUnlocalizedName().substring(5) + "_front");
+        this.frontBroke = ir.registerIcon(MSATextures.RESOURCE_CONTEXT+":" + this.getUnlocalizedName().substring(5) + "_front_broke");
     }
 
     @Override
@@ -90,16 +91,18 @@ public class BlockLaunchControl extends BlockWrenchable
             // check the multi-block one last time before trying to launch
             ((LaunchControlLogic) te).checkValidStructure(x, y, z);
             // this code will be removed
-            EngineBase[] engines = new SolidFueledEngine[1];
-            engines[0] = new SolidFueledEngine(RocketSize.Medium);
-//            engines[1] = new SolidFueledEngine(RocketSize.Small);
-//            engines[2] = new SolidFueledEngine(RocketSize.Small);
-//            engines[3] = new SolidFueledEngine(RocketSize.Small);
+            EngineBase[] engines = new SolidFueledEngine[4];
+            engines[0] = new SolidFueledEngine(RocketSize.Small);
+            engines[1] = new SolidFueledEngine(RocketSize.Small);
+            engines[2] = new SolidFueledEngine(RocketSize.Small);
+            engines[3] = new SolidFueledEngine(RocketSize.Small);
             Fuselage fuselage = new Fuselage();
-            fuselage.Size = RocketSize.Medium;
+            fuselage.Size = RocketSize.Small;
             PayloadBase payload=new PayloadSatellite();   
             // end code removal
-            ((LaunchControlLogic) te).LaunchSequence(new Rocket(engines, fuselage, payload));
+            if(((LaunchControlLogic)te).RocketLogic!=null)return true;
+            Rocket RocketLogic=new Rocket(engines, fuselage, payload);
+            ((LaunchControlLogic) te).LaunchSequence(RocketLogic);
         }
         return true;
     }

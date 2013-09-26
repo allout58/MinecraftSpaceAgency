@@ -13,6 +13,7 @@ import net.minecraftforge.common.ForgeDirection;
 import allout58.mods.MSA.MSA;
 import allout58.mods.MSA.Blocks.Logic.AssemblerLogic;
 import allout58.mods.MSA.constants.MSAGuiIDs;
+import allout58.mods.MSA.constants.MSATextures;
 import allout58.mods.MSA.util.IFacingLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -52,10 +53,10 @@ public class BlockRocketAssembler extends BlockWrenchable
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir)
     {
-        this.side = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_side");
-        this.bottom = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_bottom");
-        this.top = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_top");
-        this.front = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_front");
+        this.side = ir.registerIcon(MSATextures.RESOURCE_CONTEXT + ":" + this.getUnlocalizedName().substring(5) + "_side");
+        this.bottom = ir.registerIcon(MSATextures.RESOURCE_CONTEXT + ":" + this.getUnlocalizedName().substring(5) + "_bottom");
+        this.top = ir.registerIcon(MSATextures.RESOURCE_CONTEXT + ":" + this.getUnlocalizedName().substring(5) + "_top");
+        this.front = ir.registerIcon(MSATextures.RESOURCE_CONTEXT + ":" + this.getUnlocalizedName().substring(5) + "_front");
     }
 
     @Override

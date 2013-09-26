@@ -2,6 +2,8 @@ package allout58.mods.MSA.client.models;
 
 import org.lwjgl.opengl.GL11;
 
+import allout58.mods.MSA.constants.MSAModels;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.model.*;
 import net.minecraft.entity.Entity;
@@ -17,7 +19,7 @@ public class ModelRocket extends ModelBase
 
     public ModelRocket()
     {
-        fuselage = AdvancedModelLoader.loadModel("/assets/spacecraft/models/fuselage.obj");
+        fuselage = AdvancedModelLoader.loadModel(MSAModels.ROCKET);
 
     }
 

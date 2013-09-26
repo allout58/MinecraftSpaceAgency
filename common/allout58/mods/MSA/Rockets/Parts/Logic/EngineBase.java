@@ -23,14 +23,20 @@ public abstract class EngineBase extends RocketPart
     {
         if (isRunning)
         {
-            TotalFuel -= fuelBurnPerTick();
+            int fuelBurned=fuelBurnPerTick();
+            TotalFuel -= fuelBurned;
             if(TotalFuel<=0)
             {
                 isRunning=false;
                 return 0;
             }
             Weight-=1;
-            return fuelBurnPerTick() * powerPerFuel();
+            if(Weight<0)
+            {
+                System.out.println("Engine weight negative. Fuel left: "+TotalFuel);
+                return 0;
+            }
+            return fuelBurned * powerPerFuel();
         }
         else return 0;
     }
@@ -44,6 +50,7 @@ public abstract class EngineBase extends RocketPart
     {
         TotalFuel = nbttagcompound.getInteger("TotalFuel");
         isRunning = nbttagcompound.getBoolean("IsRunning");
+        super.readFromNBT(nbttagcompound);
     }
 
     @Override
@@ -52,5 +59,6 @@ public abstract class EngineBase extends RocketPart
         nbttagcompound.setByte("Type", (byte) Fuel.ordinal());
         nbttagcompound.setInteger("TotalFuel", TotalFuel);
         nbttagcompound.setBoolean("IsRunning", isRunning);
+        super.writeToNBT(nbttagcompound);
     }
 }

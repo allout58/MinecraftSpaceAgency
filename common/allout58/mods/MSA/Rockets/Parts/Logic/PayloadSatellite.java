@@ -13,7 +13,7 @@ public class PayloadSatellite extends PayloadBase
     public void writeToNBT(NBTTagCompound tags)
     {
         super.writeToNBT(tags);
-        tags.setString("Type", "PayloadSatellite");
+        tags.setInteger("Type", 0);
     }
     
     @Override

@@ -1,12 +1,14 @@
 package allout58.mods.MSA.Blocks;
 
 import allout58.mods.MSA.MSA;
+import allout58.mods.MSA.constants.MSATextures;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
@@ -21,6 +23,13 @@ public class BlockLaunchTower extends Block
         setUnlocalizedName("launchTower");
         setHardness(1.5F);
         setCreativeTab(MSA.creativeTab);
+        //walk through
+        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+    }
+    
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int x, int y, int z)
+    {
+        return AxisAlignedBB.getAABBPool().getAABB((double)x + 0.1D, (double)y, (double)z + 0.1D, (double)x + 0.9D, (double)y + 1.0D, (double)z + 0.9D);
     }
 
     @Override
@@ -36,8 +45,8 @@ public class BlockLaunchTower extends Block
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister ir)
     {
-        this.side = ir.registerIcon("SpaceCraft:" + this.getUnlocalizedName().substring(5) + "_side");
-        this.bottom = this.top = ir.registerIcon("SpaceCraft:blockStarSteel");
+        this.side = ir.registerIcon(MSATextures.RESOURCE_CONTEXT+":" + this.getUnlocalizedName().substring(5) + "_side");
+        this.bottom = this.top = ir.registerIcon(MSATextures.RESOURCE_CONTEXT+":blockStarSteel");
     }
 
     @Override
@@ -47,7 +56,7 @@ public class BlockLaunchTower extends Block
      */
     public int getRenderBlockPass()
     {
-        return 0;
+        return 0; 
     }
 
     @Override

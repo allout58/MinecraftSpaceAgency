@@ -19,25 +19,19 @@ public class CommonProxy implements IGuiHandler
 
     public String getCurrentLanguage()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public void addName(Object obj, String s)
     {
-        // TODO Auto-generated method stub
-
     }
 
     public void addLocalization(String s1, String string)
     {
-        // TODO Auto-generated method stub
-
     }
 
     public String getItemDisplayName(ItemStack stack)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -61,5 +55,10 @@ public class CommonProxy implements IGuiHandler
             return new GuiRocketAssembler(player.inventory, logic);
         }
         return null;
+    }
+    
+    public int getCurrentParticleSetting()
+    {
+        return 0;
     }
 }

@@ -16,11 +16,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderRocket extends Render
 {
     private ModelRocket model;
-    // private ModelRenderer renderer;
-    
 
-    // public static final ResourceLocation TEXTURE = new
-    // ResourceLocation("buildcraft", "textures/entities" + "/robot.png");
 
     public RenderRocket()
     {
@@ -56,7 +52,7 @@ public class RenderRocket extends Render
         // GL11.glRotatef(-90F, 1F, 0F, 0F);
 
         // Bind texture
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(MSATextures.MODEL_ROCKET);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(MSATextures.MODEL_ROCKET);
 
         model.render();
 
@@ -66,9 +62,8 @@ public class RenderRocket extends Render
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
-        // TODO Auto-generated method stub
         return MSATextures.MODEL_ROCKET;
     }
 

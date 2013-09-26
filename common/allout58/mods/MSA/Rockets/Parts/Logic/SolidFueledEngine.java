@@ -7,7 +7,7 @@ import allout58.mods.MSA.Rockets.RocketEnums.RocketSize;
 
 public class SolidFueledEngine extends EngineBase
 {
-
+    int power=0;
     public SolidFueledEngine(RocketSize size)
     {
         Fuel = FuelType.Solid;
@@ -16,26 +16,24 @@ public class SolidFueledEngine extends EngineBase
         {
             case Large:
                 TotalFuel = 2000;
-                Weight = 500;
                 break;
             case Medium:
                 TotalFuel = 1000;
-                Weight = 250;
                 break;
             case Small:
-                TotalFuel = 450;
-                Weight = 100;
+                TotalFuel = 500;
                 break;
             default:
                 break;
         }
-        
+        Weight=100+TotalFuel/2;
+        power=(int)(1.5*Weight);
     }
 
     @Override
     protected int powerPerFuel()
     {
-        return (int)(2*Weight);
+        return power;
     }
 
     @Override

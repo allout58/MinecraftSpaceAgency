@@ -2,6 +2,8 @@ package allout58.mods.MSA.Rockets.Parts.Logic;
 
 import java.util.*;
 
+import allout58.mods.MSA.Rockets.RocketEnums.RocketSize;
+
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.liquids.LiquidStack;
 
@@ -14,6 +16,26 @@ public class Fuselage extends RocketPart
     {
         Weight = 500;
     }
+
+    // public Fuselage(RocketSize Size)
+    // {
+    // this.Size=Size;
+    // switch(Size)
+    // {
+    // case Large:
+    // Weight=1000;
+    // break;
+    // case Medium:
+    // Weight=750;
+    // break;
+    // case Small:
+    // Weight=500;
+    // break;
+    // default:
+    // break;
+    //
+    // }
+    // }
 
     public Boolean AddAddon(AddonBase addon)
     {

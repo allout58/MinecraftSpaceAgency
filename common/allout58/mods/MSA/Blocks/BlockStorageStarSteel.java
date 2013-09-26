@@ -1,6 +1,7 @@
 package allout58.mods.MSA.Blocks;
 
 import allout58.mods.MSA.MSA;
+import allout58.mods.MSA.constants.MSATextures;
 import allout58.mods.MSA.util.StringUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,6 +17,6 @@ public class BlockStorageStarSteel extends Block
         setStepSound(soundStoneFootstep);
         setUnlocalizedName("blockStarSteel");
         setCreativeTab(MSA.creativeTab);
-        func_111022_d("spacecraft:" + this.getUnlocalizedName().substring(5));
+        setTextureName(MSATextures.RESOURCE_CONTEXT + ":" + this.getUnlocalizedName().substring(5));
     }
 }

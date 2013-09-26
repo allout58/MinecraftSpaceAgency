@@ -2,10 +2,12 @@ package allout58.mods.MSA;
 
 import allout58.mods.MSA.Blocks.*;
 import allout58.mods.MSA.Blocks.Logic.*;
+import allout58.mods.MSA.Rockets.Rocket;
 import allout58.mods.MSA.Rockets.Entity.EntityRocket;
 import allout58.mods.MSA.Rockets.Parts.Items.RocketPartList;
 import allout58.mods.MSA.Tools.*;
 import allout58.mods.MSA.WorldGen.*;
+import allout58.mods.MSA.client.gui.GuiOverlay;
 import allout58.mods.MSA.constants.MSAEntityIDs;
 import allout58.mods.MSA.items.*;
 import allout58.mods.MSA.util.*;
@@ -37,7 +39,7 @@ import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
-@Mod(modid = "MineraftSpaceAgency", name = "Minecraft Space Agency", version = "0.0.1")
+@Mod(modid = "MinecraftSpaceAgency", name = "Minecraft Space Agency", version = "0.0.1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)//, channels = { "SpaceCraft" }, packetHandler = PacketHandler.class)
 public class MSA
 {
@@ -109,7 +111,6 @@ public class MSA
         //Register our Gui Handler
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
         
-        
     }
 
     @EventHandler
@@ -122,12 +123,13 @@ public class MSA
     public void postInit(FMLPostInitializationEvent fmlPost)
     {
       //Register our event handler
-        MinecraftForge.EVENT_BUS.register(new ForgeEventsHandler());
+        MinecraftForge.EVENT_BUS.register(new GuiOverlay());
     }
 
     private void tileEntityRegistration()
     {
         GameRegistry.registerTileEntity(LaunchControlLogic.class, "LaunchControl");
         GameRegistry.registerTileEntity(AssemblerLogic.class, "RocketAssembler");
+        GameRegistry.registerTileEntity(ComSatelliteLogic.class, "ComSatelliteLogic");
     }
 }
