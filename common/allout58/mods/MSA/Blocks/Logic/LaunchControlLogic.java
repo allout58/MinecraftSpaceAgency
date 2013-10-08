@@ -141,7 +141,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         for (int z1 = z + 1; z1 <= z + sizes[i] && isGood; z1++)
                         {
                             // worldObj.setBlock(x1, y, z1, Block.fire.blockID);
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.ssBuilding.blockID)
                             {
                                 isGood = false;
                             }
@@ -156,7 +156,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         for (int z1 = z - sizes[i]; z1 <= z - 1 && isGood; z1++)
                         {
                             // worldObj.setBlock(x1, y, z1, Block.fire.blockID);
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.ssBuilding.blockID)
                             {
                                 isGood = false;
                             }
@@ -171,7 +171,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         for (int z1 = z - halfSide; z1 <= z + halfSide && isGood; z1++)
                         {
                             // worldObj.setBlock(x1, y, z1, Block.fire.blockID);
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.ssBuilding.blockID)
                             {
                                 isGood = false;
                             }
@@ -188,7 +188,7 @@ public class LaunchControlLogic extends TileEntity implements IFacingLogic
                         {
                             // worldObj.setBlock(x1, y+1, z1,
                             // Block.fire.blockID);
-                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.storageStarSteel.blockID)
+                            if (this.worldObj.getBlockId(x1, y - 1, z1) != BlockList.ssBuilding.blockID)
                             {
                                 isGood = false;
                             }

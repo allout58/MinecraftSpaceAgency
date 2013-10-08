@@ -1,6 +1,13 @@
-@SideOnly(Side.CLIENT)
+-Add control center (?multi-block?)
+-Add link cards (items)
+-Add finalized rocket item (custom 3d renderer?)
+-Make Rocket assembler work
+-Balance thrust and weight on rocket
+-Fix RocketEntity Visuals glitching
+-Make real model for rocket
+-Make textures for everything
 
-    /**
-     * allows items to add custom lines of information to the mouseover description
-     */
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {}
+Distant future:
+-Add liquid hydrogen
+-Add liquid hydrogen creation
+-Add pump station as part of launch pad complex

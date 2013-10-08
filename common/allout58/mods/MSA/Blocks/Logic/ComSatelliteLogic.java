@@ -64,7 +64,7 @@ public class ComSatelliteLogic extends TileEntity implements IFacingLogic
                         // ignore the control block when calculating valid
                         // structure;
                         if (x1 == xCoord && y1 == yCoord && z1 == zCoord) continue;
-                        if (worldObj.getBlockId(x1, y1, z1) != BlockList.storageStarSteel.blockID) isValidStructure = false;
+                        if (worldObj.getBlockId(x1, y1, z1) != BlockList.ssBuilding.blockID) isValidStructure = false;
                     }
                 }
             }
@@ -96,15 +96,13 @@ public class ComSatelliteLogic extends TileEntity implements IFacingLogic
                         continue;
                     }
                     // just double checking
-                    if (worldObj.getBlockId(x1, y1, z1) == BlockList.storageStarSteel.blockID)
+                    if (worldObj.getBlockId(x1, y1, z1) == BlockList.ssBuilding.blockID)
                     {
                         worldObj.setBlock(x1, y1, z1, BlockList.comSatellite.blockID, 1, 3);
                         TileEntity newlySlave = worldObj.getBlockTileEntity(x1, y1, z1);
                         if (newlySlave instanceof ComSatelliteLogic)
                         {
                             ((ComSatelliteLogic) newlySlave).setMaster(this);
-                            // ((ComSatelliteLogic) newlySlave).isValidStructure
-                            // = true;
                         }
                         else
                         {
@@ -136,7 +134,7 @@ public class ComSatelliteLogic extends TileEntity implements IFacingLogic
                         // just double checking
                         if (worldObj.getBlockId(x1, y1, z1) == BlockList.comSatellite.blockID && worldObj.getBlockMetadata(x1, y1, z1) == 1)
                         {
-                            worldObj.setBlock(x1, y1, z1, BlockList.storageStarSteel.blockID);
+                            worldObj.setBlock(x1, y1, z1, BlockList.ssBuilding.blockID);
                         }
                     }
                 }
@@ -276,15 +274,9 @@ public class ComSatelliteLogic extends TileEntity implements IFacingLogic
     @Override
     public void updateEntity()
     {
-        // if (isControlBlock)
-        // {
-        // worldObj.spawnParticle("fire", xCoord + 0.5, yCoord + 1.01, zCoord +
-        // 0.5, 0.01, 0.01, 0.01);
-        // }
         if (needsUpdate)
         {
             needsUpdate = false;
-            System.out.println("Updating " + (isControlBlock ? "Master" : "Slave") + " block.");
             worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         }
     }
