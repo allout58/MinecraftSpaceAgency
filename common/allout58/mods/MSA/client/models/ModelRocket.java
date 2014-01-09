@@ -1,15 +1,9 @@
 package allout58.mods.MSA.client.models;
 
-import org.lwjgl.opengl.GL11;
-
-import allout58.mods.MSA.constants.MSAModels;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import net.minecraft.client.model.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.model.ModelBase;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import allout58.mods.MSA.constants.MSAModels;
 
 public class ModelRocket extends ModelBase
 {

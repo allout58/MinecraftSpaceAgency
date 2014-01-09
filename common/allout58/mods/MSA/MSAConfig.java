@@ -12,8 +12,10 @@ public class MSAConfig
     public static int rocketAssembler;
     public static int comSatellite;
     public static int ssBuilding;
+    public static int commandCenter;
     // Items
     public static int ingots;
+    public static int linkCard;
     public static int rocket;
     // Rocket Parts
     public static int partSatellite;
@@ -48,20 +50,22 @@ public class MSAConfig
         launchTower = config.getBlock("Blocks", "launchTower", 1202).getInt();
         launchController = config.getBlock("Blocks", "launchController", 1203).getInt();
         rocketAssembler = config.getBlock("Blocks", "rocketAssembler", 1204).getInt();
-        comSatellite=config.getBlock("Blocks", "comSatellite", 1205).getInt();
-        ssBuilding=config.getBlock("Blocks","starSteelBuilding",1206).getInt();
+        comSatellite = config.getBlock("Blocks", "comSatellite", 1205).getInt();
+        ssBuilding = config.getBlock("Blocks", "starSteelBuilding", 1206).getInt();
+        commandCenter = config.getBlock("Blocks", "commandCenter", 1207).getInt();
         // Items
         ingots = config.getItem("Items", "ingots", 5400).getInt();
-        rocket = config.getItem("Items","rocket", 5403).getInt();
+        linkCard = config.getItem("Items", "linkCard", 5404).getInt();
+        rocket = config.getItem("Items", "rocket", 5403).getInt();
         // Rocket parts
         partSatellite = config.getItem("RocketParts", "partSatellite", 5405).getInt();
-        partRover=config.getItem("RocketParts", "partRover", 5406).getInt();
-        partLiquidTank=config.getItem("RocketParts", "partLiquidTank", 5407).getInt();
+        partRover = config.getItem("RocketParts", "partRover", 5406).getInt();
+        partLiquidTank = config.getItem("RocketParts", "partLiquidTank", 5407).getInt();
         partFuselage = config.getItem("RocketParts", "partFuselage", 5408).getInt();
         partLiquidEngine = config.getItem("RocketParts", "partLiquidEngine", 5409).getInt();
         partSolidEngine = config.getItem("RocketParts", "partSolidEngine", 5410).getInt();
         partFins = config.getItem("RocketParts", "partFin", 5411).getInt();
-                // Tools
+        // Tools
         wrench = config.getItem("Tools", "wrench", 5401).getInt();
         debugTool = config.getItem("Tools", "debugTool", 5402).getInt();
 

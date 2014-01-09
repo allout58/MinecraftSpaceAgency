@@ -1,0 +1,39 @@
+# Blender MTL File: 'comSatBase.blend'
+# Material Count: 4
+
+newmtl Material
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\jamesthollowell\Minecraft mod creator pack\Mods_source\MinecraftSpaceAgency\resources\assets\minecraftspaceagency\textures\entities\comSatelliteBase.png
+
+newmtl MaterialFront
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\jamesthollowell\Minecraft mod creator pack\Mods_source\MinecraftSpaceAgency\resources\assets\minecraftspaceagency\textures\entities\sataliteDish.png
+
+newmtl MaterialFront_NONE
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2

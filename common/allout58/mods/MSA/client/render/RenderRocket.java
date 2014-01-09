@@ -1,22 +1,19 @@
 package allout58.mods.MSA.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.client.FMLClientHandler;
-
-import allout58.mods.MSA.Rockets.Entity.EntityRocket;
-import allout58.mods.MSA.client.models.ModelRocket;
-import allout58.mods.MSA.constants.MSATextures;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
+import org.lwjgl.opengl.GL11;
+
+import allout58.mods.MSA.client.models.ModelRocket;
+import allout58.mods.MSA.constants.MSATextures;
+import allout58.mods.MSA.rockets.entity.EntityRocket;
+import cpw.mods.fml.client.FMLClientHandler;
+
 public class RenderRocket extends Render
 {
     private ModelRocket model;
-
 
     public RenderRocket()
     {

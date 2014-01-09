@@ -1,46 +1,44 @@
 package allout58.mods.MSA;
 
-import allout58.mods.MSA.Blocks.*;
-import allout58.mods.MSA.Blocks.Logic.*;
-import allout58.mods.MSA.Rockets.Rocket;
-import allout58.mods.MSA.Rockets.Entity.EntityRocket;
-import allout58.mods.MSA.Rockets.Parts.Items.RocketPartList;
-import allout58.mods.MSA.Tools.*;
-import allout58.mods.MSA.WorldGen.*;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.EnumHelper;
+import net.minecraftforge.common.MinecraftForge;
+import allout58.mods.MSA.blocks.BlockList;
+import allout58.mods.MSA.blocks.logic.AssemblerLogic;
+import allout58.mods.MSA.blocks.logic.ComSatelliteLogic;
+import allout58.mods.MSA.blocks.logic.CommandCenterLogic;
+import allout58.mods.MSA.blocks.logic.LaunchControlLogic;
 import allout58.mods.MSA.client.gui.GuiOverlay;
 import allout58.mods.MSA.constants.MSAEntityIDs;
-import allout58.mods.MSA.items.*;
-import allout58.mods.MSA.util.*;
-
+import allout58.mods.MSA.items.ItemList;
+import allout58.mods.MSA.network.PacketHandler;
+import allout58.mods.MSA.rockets.Parts.items.RocketPartList;
+import allout58.mods.MSA.rockets.entity.EntityRocket;
+import allout58.mods.MSA.tools.ToolList;
+import allout58.mods.MSA.util.Localization;
+import allout58.mods.MSA.util.StringUtils;
+import allout58.mods.MSA.worldgen.GenMeteors;
+import allout58.mods.MSA.worldgen.GenStarSteelOre;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.*;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.LanguageManager;
-import net.minecraft.client.resources.Locale;
-import net.minecraft.creativetab.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.EnumHelper;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
-
 @Mod(modid = "MinecraftSpaceAgency", name = "Minecraft Space Agency", version = "0.0.1")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)//, channels = { "SpaceCraft" }, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, channels = { "MSA" }, packetHandler = PacketHandler.class)
 public class MSA
 {
     // not sure if these go in ItemList or ToolList
@@ -55,9 +53,10 @@ public class MSA
         {
             return ItemList.ingotStarSteel;
         }
-        
+
         @Override
-        public String getTranslatedTabLabel() {
+        public String getTranslatedTabLabel()
+        {
             return StringUtils.localize("strings.Title");
         }
     };
@@ -96,21 +95,20 @@ public class MSA
         ItemList.init();
         ToolList.init();
         RocketPartList.init();
-        
-        
+
         // Add the recipies for our blocks, items, tools and rocket parts
         BlockList.addRecipies();
         ItemList.addRecipies();
         ToolList.addRecipies();
         RocketPartList.addRecipies();
-        
+
         // Register our world generators
         GameRegistry.registerWorldGenerator(new GenStarSteelOre());
         GameRegistry.registerWorldGenerator(new GenMeteors());
-        
-        //Register our Gui Handler
+
+        // Register our Gui Handler
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
-        
+
     }
 
     @EventHandler
@@ -118,12 +116,13 @@ public class MSA
     {
 
     }
-    
+
     @EventHandler
     public void postInit(FMLPostInitializationEvent fmlPost)
     {
-      //Register our event handler
-        MinecraftForge.EVENT_BUS.register(new GuiOverlay());
+        // Register our event handler
+        if(FMLCommonHandler.instance().getEffectiveSide()==Side.CLIENT)
+            MinecraftForge.EVENT_BUS.register(new GuiOverlay());
     }
 
     private void tileEntityRegistration()
@@ -131,5 +130,6 @@ public class MSA
         GameRegistry.registerTileEntity(LaunchControlLogic.class, "LaunchControl");
         GameRegistry.registerTileEntity(AssemblerLogic.class, "RocketAssembler");
         GameRegistry.registerTileEntity(ComSatelliteLogic.class, "ComSatelliteLogic");
+        GameRegistry.registerTileEntity(CommandCenterLogic.class, "CommandCenter");
     }
 }

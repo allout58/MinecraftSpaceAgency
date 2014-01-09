@@ -1,18 +1,16 @@
 package allout58.mods.MSA.client;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.MinecraftForgeClient;
 import allout58.mods.MSA.CommonProxy;
-import allout58.mods.MSA.Blocks.Logic.ComSatelliteLogic;
-import allout58.mods.MSA.Rockets.Entity.EntityRocket;
+import allout58.mods.MSA.blocks.logic.ComSatelliteLogic;
 import allout58.mods.MSA.client.render.ComSatelliteLogicRender;
 import allout58.mods.MSA.client.render.RenderRocket;
+import allout58.mods.MSA.rockets.entity.EntityRocket;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ClientProxy extends CommonProxy
 {
@@ -21,7 +19,7 @@ public class ClientProxy extends CommonProxy
     public void registerRenderers()
     {
         RenderingRegistry.registerEntityRenderingHandler(EntityRocket.class, new RenderRocket());
-        
+
         ClientRegistry.bindTileEntitySpecialRenderer(ComSatelliteLogic.class, new ComSatelliteLogicRender());
     }
 
@@ -51,7 +49,7 @@ public class ClientProxy extends CommonProxy
 
         return Item.itemsList[stack.itemID].getItemDisplayName(stack);
     }
-    
+
     @Override
     public int getCurrentParticleSetting()
     {
